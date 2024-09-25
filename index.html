@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <!--BY Otoniel PalaciosVz-->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="https://http2.mlstatic.com/frontend-assets/ui-navigation/5.10.0/mercadolibre/favicon.svg"
+      type="image/x-icon"
+    />
+    <title>Stock Audit Falso</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #f4f4f4;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 90%; /* Ajustado para ocupar el 90% de la pantalla */
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      label {
+        margin-top: 10px;
+      }
+      input,
+      select,
+      button {
+        padding: 10px;
+        width: 90%;
+        margin-top: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: border 0.2s; /* Manteniendo solo la transición de borde */
+      }
+      input:focus,
+      select:focus {
+        border-color: #007bff;
+        outline: none;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      .output-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        margin-left: 20px; /* Espacio entre contenedor y texto */
+      }
+      h2 {
+        margin-top: 20px;
+        text-align: center;
+      }
+      p {
+        border: 1px dashed #ccc;
+        padding: 10px;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+        word-wrap: break-word;
+        width: 300px; /* Ancho fijo para el texto generado */
+      }
+      .mensaje {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #28a745;
+        color: white;
+        padding: 10px;
+        border-radius: 4px;
+        transition: opacity 0.5s;
+      }
+      .wrapper {
+        display: flex; /* Flexbox para alinear contenedor y texto */
+        justify-content: center;
+        align-items: flex-start;
+        width: 60%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="container">
+        <h1>Stock Audit Falso</h1>
+
+        <label for="sexo">Sexo:</label>
+        <select id="sexo">
+          <option value="él">Él</option>
+          <option value="ella">Ella</option>
+        </select>
+
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" />
+
+        <label for="pickup">Pick Up:</label>
+        <input type="text" id="pickup" />
+
+        <label for="nombre">Nombre del representante:</label>
+        <input type="text" id="nombre" />
+
+        <label for="ubicacion">Ubicación/Mezzanine:</label>
+        <input type="text" id="ubicacion" />
+
+        <label for="meli">Meli:</label>
+        <input type="text" id="meli" />
+
+        <button id="generarTexto">Generar Texto</button>
+        <button id="copiarTexto" style="display: none">Copiar Texto</button>
+        <button id="limpiar">Limpiar</button>
+      </div>
+
+      <div class="output-container">
+        <h2>Texto Generado:</h2>
+        <p id="textoGenerado"></p>
+      </div>
+    </div>
+
+    <div class="mensaje" id="mensajeCopiado">
+      Texto copiado al portapapeles!
+    </div>
+
+    <script>
+      document.getElementById("generarTexto").onclick = function () {
+        const sexo = document.getElementById("sexo").value;
+        const fecha = document.getElementById("fecha").value;
+        const pickup = document.getElementById("pickup").value;
+        const nombre = document.getElementById("nombre").value;
+        const ubicacion = document.getElementById("ubicacion").value;
+        const meli = document.getElementById("meli").value;
+
+        const texto = `Se realizó la auditoría a la Pick Up # ${pickup}, el día ${fecha}, en la cual al validar los Stock’s Audits generados por ${sexo} rep. ${nombre}, se detectó que el de la ubicación ${ubicacion} con la meli ${meli} físicamente se encontraba en la ubicación, esto ocasionó un SAF.`;
+
+        document.getElementById("textoGenerado").innerText = texto;
+        document.getElementById("copiarTexto").style.display = "block";
+      };
+
+      document.getElementById("copiarTexto").onclick = function () {
+        const texto = document.getElementById("textoGenerado").innerText;
+        navigator.clipboard.writeText(texto).then(() => {
+          const mensaje = document.getElementById("mensajeCopiado");
+          mensaje.style.display = "block";
+          setTimeout(() => {
+            mensaje.style.opacity = "0";
+            setTimeout(() => {
+              mensaje.style.display = "none";
+              mensaje.style.opacity = "1";
+            }, 500);
+          }, 1500);
+        });
+      };
+
+      document.getElementById("limpiar").onclick = function () {
+        document.getElementById("sexo").selectedIndex = 0;
+        document.getElementById("fecha").value = "";
+        document.getElementById("pickup").value = "";
+        document.getElementById("nombre").value = "";
+        document.getElementById("ubicacion").value = "";
+        document.getElementById("meli").value = "";
+        document.getElementById("textoGenerado").innerText = "";
+        document.getElementById("copiarTexto").style.display = "none";
+      };
+    </script>
+  </body>
+</html>
