@@ -30,7 +30,7 @@
         background: white;
         border-radius: 8px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        width: 90%; /* Ajustado para ocupar el 90% de la pantalla */
+        width: 90%;
         padding: 20px;
       }
       h1 {
@@ -48,7 +48,7 @@
         margin-top: 10px;
         border: 1px solid #ccc;
         border-radius: 4px;
-        transition: border 0.2s; /* Manteniendo solo la transición de borde */
+        transition: border 0.2s;
       }
       input:focus,
       select:focus {
@@ -69,7 +69,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-        margin-left: 20px; /* Espacio entre contenedor y texto */
+        margin-left: 20px;
       }
       h2 {
         margin-top: 20px;
@@ -81,7 +81,7 @@
         border-radius: 4px;
         background-color: #f9f9f9;
         word-wrap: break-word;
-        width: 300px; /* Ancho fijo para el texto generado */
+        width: 300px;
       }
       .mensaje {
         display: none;
@@ -96,7 +96,7 @@
         transition: opacity 0.5s;
       }
       .wrapper {
-        display: flex; /* Flexbox para alinear contenedor y texto */
+        display: flex;
         justify-content: center;
         align-items: flex-start;
         width: 60%;
@@ -130,13 +130,12 @@
         <input type="text" id="meli" />
 
         <button id="generarTexto">Generar Texto</button>
-        <button id="copiarTexto" style="display: none">Copiar Texto</button>
-        <button id="limpiar">Limpiar</button>
       </div>
 
       <div class="output-container">
         <h2>Texto Generado:</h2>
         <p id="textoGenerado"></p>
+        <button id="copiarTexto" style="display: none">Copiar Texto</button>
       </div>
     </div>
 
@@ -172,17 +171,6 @@
             }, 500);
           }, 1500);
         });
-      };
-
-      document.getElementById("limpiar").onclick = function () {
-        document.getElementById("sexo").selectedIndex = 0;
-        document.getElementById("fecha").value = "";
-        document.getElementById("pickup").value = "";
-        document.getElementById("nombre").value = "";
-        document.getElementById("ubicacion").value = "";
-        document.getElementById("meli").value = "";
-        document.getElementById("textoGenerado").innerText = "";
-        document.getElementById("copiarTexto").style.display = "none";
       };
     </script>
   </body>
