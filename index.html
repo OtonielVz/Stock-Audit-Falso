@@ -1,237 +1,192 @@
 <!DOCTYPE html>
 <html lang="es">
-<!--Archivo creado por Otoniel PalaciosVZ...T2👁‍🗨-->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auditoria | Stock Audit Falso</title>
-    <link rel="shortcut icon" href="https://i.ibb.co/jy1GrBx/logo-nuevo.png" type="image/x-icon">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Space+Grotesk:wght@300..700&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auditoría | Stock Audit Falso</title>
+  <link rel="shortcut icon" href="https://i.ibb.co/jy1GrBx/logo-nuevo.png" type="image/x-icon">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Poppins", serif;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
 
-        body {
-            background-color: rgb(244, 244, 244);
-            display: flex;
-            gap: 80px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
-            width: 100%;
-            height: fit-content;
-        }
+    body {
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      padding: 40px 20px;
+    }
 
-        search {
-            background-color: #fff;
-            width: 40em;
-            height: 36em;
-            overflow: hidden;
-        }
+    .form-section, .output-section {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
 
-        form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            padding: 40px;
-        }
+    .form-section {
+      width: 460px;
+    }
 
-        select {
-            grid-column: span 2;
-            text-align: center;
-            height: 2.4em;
-        }
+    .form-section h1 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
 
-        label {
-            grid-column: 1;
-            font-weight: 500;
-            color: #333;
-        }
+    form {
+      display: grid;
+      gap: 15px;
+    }
 
-        input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            outline: none;
-            caret-color: rgb(255, 0, 0);
-        }
+    select, input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
 
-        button {
-            grid-column: span 2;
-            padding: 10px;
-            background-color: #333333;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-        }
+    #progress {
+      height: 10px;
+      width: 100%;
+      background: #eee;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
 
-        button:hover {
-            background-color: #4a4a4a;
-        }
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background-color: red;
+      transition: width 0.3s, background-color 0.3s;
+    }
 
-        .containerText {
-            background-color: white;
-            width: 28em;
-            height: 30em;
-            display: flex;
-            justify-content: center;
-            text-align: center;
-            align-items: center;
-            flex-direction: column;
-            overflow: auto;
-        }
+    .output-section {
+      width: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        p {
-            font-size: 14px;
-            text-align: justify;
-            padding: 10px;
-        }
-        .copiar{
-            width: 10em;
-            display: none;
-        }
-        .copiar:active{
-            background-color: #000;
-        }
-        .modal{
-            position: absolute;
-            top: 20px;
-            background-color: #28a745;
-            color: #fff;
-            border-radius: 4px;
-            display: none;
-        }
-        h1{
-            padding: 10px;
-            text-align: center;
-        }
-        #generar{
-            margin-top: 60px;
-        }
-        @media (max-width:760px){
-        search {
-            background-color: #fff;
-            width: 40em;
-            height: 34em;
-            overflow: hidden;
-        }
-        .modal{
-            position: absolute;
-            top: 830px;
-            background-color: #28a745;
-            color: #fff;
-            border-radius: 4px;
-            display: none;
-        }
-        }
-    </style>
+    .output-section h3 {
+      margin-bottom: 15px;
+    }
+
+    .output-section p {
+      text-align: justify;
+      font-size: 15px;
+    }
+
+    .copiar {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .modal {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #28a745;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      display: none;
+    }
+  </style>
 </head>
-
 <body>
-    <search>
-        <h1>Stock Audit Falso</h1>
-        <form action="">
 
-            <select id="sexo">
-                <option disabled selected>Elige el sexo del/la representante</option>
-                <option value="el">El</option>
-                <option value="la">Ella</option>
-            </select>
-            <label for="fecha">Fecha del evento</label>
-            <input type="date" name="fecha" id="fecha">
-            <label for="nombre">Nombre del/la rep</label>
-            <input id="nombre" type="text" placeholder="Ej. Miguel Perez Garcia">
-            <label for="pickup">Pickup</label>
-            <input id="pickup" type="text" placeholder="Ej. 3543234">
-            <label for="ubicacion">Ubicación</label>
-            <input id="ubicacion" type="text" placeholder="MZ-BL-RK-TT">
-            <label for="meli">Código MELI</label>
-            <input id="meli" type="text" placeholder="Ej. EDMY09319">
-            <button id="generar">Generar texto</button>
-        </form>
-    </search>
-    <div class="containerText">
-        <h3 id="textoGenerado">🤖: Aún no hay nada por aquí😴...</h3>
-        <p class="textoOk"></p>
-        <button class="copiar">Copiar Texto</button>
+  <div class="form-section">
+    <h1>Stock Audit Falso</h1>
+    <div id="progress">
+      <div id="progress-bar"></div>
     </div>
-    <div class="modal">
-        <p>Texto copiado al portapales!</p>
-    </div>
+    <form>
+      <select id="sexo">
+        <option disabled selected>Elige el sexo del/la representante</option>
+        <option value="el">El</option>
+        <option value="la">Ella</option>
+      </select>
+      <input type="date" id="fecha" placeholder="Fecha del evento">
+      <input type="text" id="nombre" placeholder="Nombre del/la representante">
+      <input type="text" id="pickup" placeholder="Pickup">
+      <input type="text" id="ubicacion" placeholder="Ubicación">
+      <input type="text" id="meli" placeholder="Código MELI">
+    </form>
+  </div>
 
-</body>
-<script>
-    const $ = selector => document.querySelector(selector);
-    const $textoOk = $('.textoOk');
+  <div class="output-section">
+    <h3 id="textoGenerado">🤖: Aún no hay nada por aquí😴...</h3>
+    <p class="textoOk"></p>
+    <button class="copiar">Copiar Texto</button>
+  </div>
+
+  <div class="modal">Texto copiado al portapapeles!</div>
+
+  <script>
+    const $ = s => document.querySelector(s);
+    const inputs = ['#sexo', '#fecha', '#nombre', '#pickup', '#ubicacion', '#meli'];
     const $textoGenerado = $('#textoGenerado');
-    const $generar = $('#generar');
+    const $textoOk = $('.textoOk');
     const $copiar = $('.copiar');
     const $modal = $('.modal');
+    const $progressBar = $('#progress-bar');
 
+    function generarTexto() {
+      const sexo = $('#sexo').value;
+      const fecha = $('#fecha').value;
+      const nombre = $('#nombre').value;
+      const pickup = $('#pickup').value;
+      const ubicacion = $('#ubicacion').value;
+      const meli = $('#meli').value;
 
+      const total = inputs.length;
+      let filled = inputs.reduce((acc, sel) => acc + (!!$(sel).value ? 1 : 0), 0);
+      let percent = Math.round((filled / total) * 100);
 
+      $progressBar.style.width = `${percent}%`;
+      $progressBar.style.backgroundColor = `hsl(${percent}, 100%, 40%)`;
 
-    $generar.addEventListener('click', (e) => {
-        e.preventDefault();
+      if (filled < total) {
+        $textoGenerado.textContent = '🤖: Aún no hay nada por aquí😴...';
+        $textoOk.textContent = '';
+        $copiar.style.display = 'none';
+        return;
+      }
 
-        const $nombreRep = $('#nombre').value;
-        const $sexo = $('#sexo').value;
-        const $meli = $('#meli').value;
-        const $fecha = $('#fecha').value;
-        const $ubicacion = $('#ubicacion').value;
-        const $pickup = $('#pickup').value;
+      let prenombre = sexo === 'el' ? 'el representante' : 'la representante';
+      let mensaje = `Se realizó la auditoría a la PickUp #${pickup}, el día ${fecha}, en la cual al validar los Stock’s Audits generados por ${prenombre} ${nombre}, se detectó que el de la ubicación ${ubicacion} con la meli ${meli} físicamente sí se encontraba en la ubicación, por lo que se considera un Stock Audit falso.`;
 
-        let prenombre;
+      $textoGenerado.textContent = '🤖: Texto generado con éxito ✅';
+      $textoOk.textContent = mensaje;
+      $copiar.style.display = 'block';
 
-        if ($sexo === 'el') {
-            prenombre = 'el representante';
-        } else if ($sexo === 'la') {
-            prenombre = 'la representante';
-        }
+      $copiar.onclick = () => {
+        navigator.clipboard.writeText(mensaje);
+        $modal.style.display = 'block';
+        $modal.style.opacity = 1;
+        setTimeout(() => {
+          $modal.style.opacity = 0;
+          setTimeout(() => $modal.style.display = 'none', 500);
+        }, 2000);
+      };
+    }
 
-        if (!$nombreRep || !$pickup || !$sexo || !$meli || !$fecha || !$ubicacion) {
-            $textoGenerado.textContent = '🤖: Hay un problema ❌';
-            $textoOk.style.textAlign = 'center';
-            $textoOk.textContent = '🤔Te faltan campos por llenar o aún no escribes nada👀, revísalo e inténtalo de nuevo 🤗.';
-            return; 
-        }
-
-        
-    $textoGenerado.textContent = '🤖: Texto generado  con éxito✅.'
-        const mensaje = `Se realizó la auditoría a la PickUp #${$pickup} ,el día ${$fecha}, en la cual al validar los Stock’s Audits generados por ${prenombre} ${$nombreRep}, se detectó que el de la ubicación ${$ubicacion} con la meli ${$meli} físicamente se encontraba en la ubicación, por lo que se considera un Stock Audit falso.`;
-
-        $textoOk.style.textAlign = 'justify';
-        $textoOk.textContent = mensaje;
-        $copiar.style.display='block';
-
-
-        $copiar.addEventListener('click',()=>{
-            navigator.clipboard.writeText(mensaje).then(()=>{
-            });
-            $modal.style.display='block';
-            $modal.style.opacity = '1';
-
-        setTimeout(()=>{
-            $modal.style.opacity = '0';
-            setTimeout(()=>{
-            $modal.style.display = 'none';
-            },500)
-        },2000);
-         });
-    });
-
-
-
-
-
-</script>
-
+    inputs.forEach(sel => $(sel).addEventListener('input', generarTexto));
+  </script>
+</body>
 </html>
