@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Auditoría | Stock Audit Falso</title>
-  <link rel="shortcut icon" href="https://i.ibb.co/jy1GrBx/logo-nuevo.png" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Auditoria | Stock Audit Falso</title>
+  <link rel="shortcut icon" href="https://i.ibb.co/jy1GrBx/logo-nuevo.png" type="image/x-icon"/>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
@@ -93,23 +93,15 @@
       border-radius: 6px;
       cursor: pointer;
       display: none;
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    .modal {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #28a745;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 6px;
-      display: none;
+    .copiar:active {
+      background-color: #000;
     }
   </style>
 </head>
 <body>
-
   <div class="form-section">
     <h1>Stock Audit Falso</h1>
     <div id="progress">
@@ -121,21 +113,19 @@
         <option value="el">El</option>
         <option value="la">Ella</option>
       </select>
-      <input type="date" id="fecha" placeholder="Fecha del evento">
-      <input type="text" id="nombre" placeholder="Nombre del/la representante">
-      <input type="text" id="pickup" placeholder="Pickup">
-      <input type="text" id="ubicacion" placeholder="Ubicación">
-      <input type="text" id="meli" placeholder="Código MELI">
+      <input type="date" id="fecha" />
+      <input type="text" id="nombre" placeholder="Nombre del/la rep" />
+      <input type="text" id="pickup" placeholder="Pickup #" />
+      <input type="text" id="ubicacion" placeholder="Ubicación" />
+      <input type="text" id="meli" placeholder="Código MELI" />
     </form>
   </div>
 
   <div class="output-section">
-    <h3 id="textoGenerado">🤖: Aún no hay nada por aquí😴...</h3>
+    <h3 id="textoGenerado">🤖: Aún no hay nada por aquí...</h3>
     <p class="textoOk"></p>
     <button class="copiar">Copiar Texto</button>
   </div>
-
-  <div class="modal">Texto copiado al portapapeles!</div>
 
   <script>
     const $ = s => document.querySelector(s);
@@ -143,33 +133,27 @@
     const $textoGenerado = $('#textoGenerado');
     const $textoOk = $('.textoOk');
     const $copiar = $('.copiar');
-    const $modal = $('.modal');
     const $progressBar = $('#progress-bar');
 
     function generarTexto() {
-      const sexo = $('#sexo').value;
-      const fecha = $('#fecha').value;
-      const nombre = $('#nombre').value;
-      const pickup = $('#pickup').value;
-      const ubicacion = $('#ubicacion').value;
-      const meli = $('#meli').value;
+      const data = {};
+      inputs.forEach(id => data[id.slice(1)] = $(id).value);
 
-      const total = inputs.length;
-      let filled = inputs.reduce((acc, sel) => acc + (!!$(sel).value ? 1 : 0), 0);
-      let percent = Math.round((filled / total) * 100);
-
+      let filled = inputs.filter(id => $(id).value).length;
+      let percent = Math.round((filled / inputs.length) * 100);
       $progressBar.style.width = `${percent}%`;
       $progressBar.style.backgroundColor = `hsl(${percent}, 100%, 40%)`;
 
-      if (filled < total) {
-        $textoGenerado.textContent = '🤖: Aún no hay nada por aquí😴...';
+      if (filled < inputs.length) {
+        $textoGenerado.textContent = '🤖: Aún no hay nada por aquí...';
         $textoOk.textContent = '';
         $copiar.style.display = 'none';
         return;
       }
 
-      let prenombre = sexo === 'el' ? 'el representante' : 'la representante';
-      let mensaje = `Se realizó la auditoría a la PickUp #${pickup}, el día ${fecha}, en la cual al validar los Stock’s Audits generados por ${prenombre} ${nombre}, se detectó que el de la ubicación ${ubicacion} con la meli ${meli} físicamente sí se encontraba en la ubicación, por lo que se considera un Stock Audit falso.`;
+      let prenombre = data.sexo === 'el' ? 'el representante' : 'la representante';
+
+      const mensaje = `Se realizó la auditoría a la PickUp #${data.pickup}, el día ${data.fecha}, en la cual al validar los Stock’s Audits generados por ${prenombre} ${data.nombre}, se detectó que el de la ubicación ${data.ubicacion} con la meli ${data.meli} físicamente se encontraba en la ubicación, por lo que se considera un Stock Audit falso.`;
 
       $textoGenerado.textContent = '🤖: Texto generado con éxito ✅';
       $textoOk.textContent = mensaje;
@@ -177,11 +161,13 @@
 
       $copiar.onclick = () => {
         navigator.clipboard.writeText(mensaje);
-        $modal.style.display = 'block';
-        $modal.style.opacity = 1;
+        $copiar.textContent = '¡Copiado!';
+        $copiar.style.backgroundColor = '#28a745';
+        $copiar.style.color = '#fff';
         setTimeout(() => {
-          $modal.style.opacity = 0;
-          setTimeout(() => $modal.style.display = 'none', 500);
+          $copiar.textContent = 'Copiar Texto';
+          $copiar.style.backgroundColor = '#333';
+          $copiar.style.color = '#fff';
         }, 2000);
       };
     }
